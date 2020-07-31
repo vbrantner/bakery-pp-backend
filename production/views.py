@@ -34,6 +34,7 @@ class IngredientViewSet(viewsets.ModelViewSet):
 
 
 class MeasurementViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = models.Measurement.objects.all()
     serializer_class = serializers.MeasurementSerializer
     lookup_field = 'slug'
@@ -47,11 +48,13 @@ class CategoryViewSet(viewsets.ModelViewSet):
     list:
     Retrieves all possible categories
     """
+    permission_classes = [IsAuthenticated]
     queryset = models.Category.objects.all()
     serializer_class = serializers.CategorySerializer
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = models.Recipe.objects.all()
     serializer_class = serializers.RecipeSerializer
     detail_serializer_class = serializers.RecipeDetailSerializer
@@ -66,11 +69,13 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 
 class RecipeIngredientViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = models.RecipeIngredient.objects.all()
     serializer_class = serializers.RecipeIngredientSerializer
 
 
 class orderOverviewList(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         sql = """
  WITH RECURSIVE plan as (
@@ -164,11 +169,13 @@ class orderOverviewList(APIView):
 
 
 class ProductViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = models.Product.objects.all()
     serializer_class = serializers.ProductSerializer
 
 
 class ProductionViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = models.Production.objects.all()
     serializer_class = serializers.Production
     filter_backends = [DjangoFilterBackend]
@@ -176,6 +183,7 @@ class ProductionViewSet(viewsets.ModelViewSet):
 
 
 class MixingList(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         sql = """
 SELECT r.name as rezeptname,
@@ -201,6 +209,7 @@ GROUP BY p.id, r.id, m.name;
 
 
 class ProductionIngredientViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = models.ProductionIngredients.objects.all()
     serializer_class = serializers.ProductionIngredientsSerializer
     filter_backends = [DjangoFilterBackend]
@@ -208,11 +217,13 @@ class ProductionIngredientViewSet(viewsets.ModelViewSet):
 
 
 class OrdersViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = models.Orders.objects.all()
     serializer_class = serializers.OrdersSerializer
 
 
 class makeRecipe(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, production_id, format=None):
         sql = """
 SELECT ri.id as id,
