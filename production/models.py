@@ -193,7 +193,7 @@ class Production(models.Model):
 
 
 class ProductionIngredients(models.Model):
-    production = models.ForeignKey(Production, on_delete=models.PROTECT)
+    production = models.ForeignKey(Production, on_delete=models.CASCADE)
     # slug = models.SlugField()
     date = models.DateTimeField()
     ingredient = models.ForeignKey(Ingredient, on_delete=models.PROTECT)
