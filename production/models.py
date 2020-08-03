@@ -102,7 +102,7 @@ class Recipe(models.Model):
     mixTimeOne = models.CharField(max_length=150, blank=True, null=True)
     mixTimeTwo = models.CharField(max_length=150, blank=True, null=True)
     rest = models.DurationField(blank=True, null=True)
-    charge_amount = models.IntegerField(blank=True, null=True)
+    charge_amount = models.DecimalField(decimal_places=3, max_digits=15)
     charge_unit = models.ForeignKey(Measurement, on_delete=models.PROTECT)
 
     def __str__(self):
@@ -128,6 +128,7 @@ class RecipeIngredient(models.Model):
     unit = models.ForeignKey(Measurement, on_delete=models.PROTECT)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.PROTECT)
     temperatur = models.FloatField(blank=True, null=True)
+    position = models.IntegerField(blank=True, null=True)
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.PROTECT,
