@@ -7,6 +7,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.http import JsonResponse
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 
 from . import models
@@ -178,8 +179,9 @@ class ProductionViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = models.Production.objects.all()
     serializer_class = serializers.Production
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['checked']
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_fields = ['checked', 'recipe', 'finished']
+    ordering_fields = ['finished']
 
 
 class MixingList(APIView):

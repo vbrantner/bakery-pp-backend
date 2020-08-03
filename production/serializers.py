@@ -91,7 +91,7 @@ class Production(serializers.ModelSerializer):
     class Meta:
         model = models.Production
         fields = '__all__'
-        read_only_fields = ['slug', 'recipe_name', 'charge', 'date_time']
+        read_only_fields = ['slug', 'recipe_name', 'charge']
 
 
 class ProductionIngredientsSerializer(serializers.ModelSerializer):
