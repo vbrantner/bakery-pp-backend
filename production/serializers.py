@@ -7,6 +7,7 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
     ingredient_name = serializers.ReadOnlyField(source='ingredient.name')
     recipe_name = serializers.ReadOnlyField(source='recipe.name')
     unit_name = serializers.ReadOnlyField(source='unit.name')
+    amount = serializers.DecimalField(max_digits=10, decimal_places=3, localize=True)
 
     class Meta:
         model = models.RecipeIngredient
@@ -43,35 +44,23 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    # url = serializers.HyperlinkedIdentityField(
-    #     view_name='recipe-detail',
-    #     lookup_field='slug'
-    # )
+    charge_amount = serializers.DecimalField(
+        max_digits=12, decimal_places=3, localize=True)
+    temperatur = serializers.DecimalField(max_digits=4, decimal_places=1, localize=True)
 
     class Meta:
         model = models.Recipe
         fields = '__all__'
         read_only_fields = ['modified', 'version', 'slug', 'created']
-        # extra_kwargs = {
-        #     'url': {'loojkup_field': 'slug'},
-        # }
 
 
 class RecipeDetailSerializer(serializers.ModelSerializer):
     ingredients = RecipeIngredientSerializer(many=True, read_only=True)
 
-    # url = serializers.HyperlinkedIdentityField(
-        # view_name='recipe-detail',
-        # lookup_field='slug'
-    # )
-
     class Meta:
         model = models.Recipe
         fields = '__all__'
         read_only_fields = ['modified', 'version', 'slug', 'created']
-        # extra_kwargs = {
-        #     'url': {'lookup_field': 'slug'},
-        # }
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -87,6 +76,8 @@ class Production(serializers.ModelSerializer):
     unit_name = serializers.ReadOnlyField(source='unit.name')
     recipe_name = serializers.ReadOnlyField(source='recipe.name')
     charge = serializers.ReadOnlyField(source='get_charge')
+    actual_temperatur = serializers.DecimalField(max_digits=4, decimal_places=1, localize=True)
+    amount = serializers.DecimalField(max_digits=10, decimal_places=3, localize=True)
 
     class Meta:
         model = models.Production
@@ -95,6 +86,7 @@ class Production(serializers.ModelSerializer):
 
 
 class ProductionIngredientsSerializer(serializers.ModelSerializer):
+    amount = serializers.DecimalField(max_digits=10, decimal_places=3, localize=True)
     class Meta:
         model = models.ProductionIngredients
         fields = '__all__'
@@ -104,6 +96,8 @@ class OrdersSerializer(serializers.ModelSerializer):
     product_name = serializers.ReadOnlyField(source="product.name")
     unit_name = serializers.ReadOnlyField(source="unit.name")
     day_name = serializers.ReadOnlyField(source="get_day_name")
+    amount = serializers.DecimalField(
+        max_digits=10, decimal_places=3, localize=True)
 
     class Meta:
         model = models.Orders

@@ -136,7 +136,10 @@ REST_FRAMEWORK = {
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'de-de'
+LANGUAGE_CODE = 'de'
+LANGUAGES = (
+  ('de', 'German'),
+)
 
 TIME_ZONE = 'Europe/Istanbul'
 
