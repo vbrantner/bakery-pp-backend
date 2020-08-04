@@ -191,7 +191,7 @@ class MixingList(APIView):
 SELECT r.name as rezeptname,
        to_char(p.mix_date, 'dd-mm-yyyy') as mischdatum,
        p.id as production_id,
-       TO_CHAR(p.amount, '9999D999') as menge,
+       replace(TO_CHAR(p.amount, '9999D999'),'.',',') as menge,
        BOOL_OR(pi.checked) as misch_status,
        p.checked as teig_status,
        r.id || '-' || p.id as charge,
@@ -202,7 +202,7 @@ LEFT JOIN production_measurement m ON p.unit_id = m.id
 LEFT JOIN production_recipe r on p.recipe_id = r.id
 WHERE p.mix_date > NOW() - INTERVAL '2 DAY' AND
       p.mix_date <= NOW() + INTERVAL '2 DAY'
-GROUP BY p.id, r.id, m.name;
+GROUP BY p.id, r.id, m.name;;
         """
         with connection.cursor() as cursor:
             cursor.execute(sql)
@@ -241,7 +241,7 @@ SELECT ri.id as id,
        pi.checked as checked,
        m.name as einheit,
        m.id as einheit_id,
-       TO_CHAR(ROUND(p.amount * ri.amount / (SELECT sum(ri_h.amount) FROM production_recipeingredient ri_h WHERE ri_h.recipe_id = r.id), 3), '9990D999') as menge
+       replace(TO_CHAR(ROUND(p.amount * ri.amount / (SELECT sum(ri_h.amount) FROM production_recipeingredient ri_h WHERE ri_h.recipe_id = r.id), 3), '9990D999'), '.', ',') as menge
 FROM production_production p
 LEFT JOIN production_recipeingredient ri ON ri.recipe_id = p.recipe_id
 LEFT JOIN production_productioningredients pi ON p.id = pi.production_id AND pi.ingredient_id = ri.ingredient_id

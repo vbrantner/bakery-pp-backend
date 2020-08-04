@@ -178,7 +178,7 @@ class Production(models.Model):
     created = models.DateTimeField(blank=True, null=True)
     finished = models.DateTimeField(blank=True, null=True)
     checked = models.BooleanField()
-    actual_temperatur = models.DecimalField(decimal_places=2, max_digits=10, null=True, default=0)
+    actual_temperatur = models.DecimalField(decimal_places=2, max_digits=10, null=True, blank=True)
     amount = models.DecimalField(decimal_places=3, max_digits=100)
     unit = models.ForeignKey(Measurement, on_delete=models.PROTECT)
     product_list_id = models.CharField(max_length=300, blank=True, null=True)
