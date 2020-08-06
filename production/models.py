@@ -212,3 +212,13 @@ class ProductionIngredients(models.Model):
 
     def __str__(self):
         return self.production_id
+
+class TemperaturSensor(models.Model):
+    sensor_name = models.CharField(max_length=100)
+    temperature = models.IntegerField()
+    humidity = models.IntegerField()
+    sensor_id = models.CharField(max_length=100)
+    date_time = models.DateTimeField()
+
+    def __str__(self):
+        return "{}-{}, {} | {}".format(self.sensor_name, self.date_time, self.temperature, self.humidity)
