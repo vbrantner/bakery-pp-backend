@@ -6,6 +6,7 @@ from . import views
 router = DefaultRouter()
 router.register(r"categories", views.CategoryViewSet)
 router.register(r'ingredients', views.IngredientViewSet)
+router.register(r'temperaturesensor', views.TemperatureSensorViewSet)
 router.register(r'measurements', views.MeasurementViewSet)
 router.register(r'recipes', views.RecipeViewSet)
 router.register(r'recipeingredient', views.RecipeIngredientViewSet)
@@ -21,6 +22,7 @@ urlpatterns = [
     path(r'', include(router.urls)),
     path(r'orderoverviewList/', views.orderOverviewList.as_view()),
     path(r'make/<int:production_id>/', views.makeRecipe.as_view()),
-    path(r'mixinglist/', views.MixingList.as_view())
+    path(r'mixinglist/', views.MixingList.as_view()),
+    # path(r'temperaturesensor/', views.ListTemperatureSensor.as_view())
 #    path(r'recipes/<slug:recipe>/<slug:ingredient>/', views.RecipeIngredientSpecificRecipe.as_view(), name='recipe-ingredient-detail'),
 ]

@@ -7,7 +7,8 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
     ingredient_name = serializers.ReadOnlyField(source='ingredient.name')
     recipe_name = serializers.ReadOnlyField(source='recipe.name')
     unit_name = serializers.ReadOnlyField(source='unit.name')
-    amount = serializers.DecimalField(max_digits=10, decimal_places=3, localize=True)
+    amount = serializers.DecimalField(
+        max_digits=10, decimal_places=3, localize=True)
 
     class Meta:
         model = models.RecipeIngredient
@@ -46,7 +47,8 @@ class IngredientSerializer(serializers.ModelSerializer):
 class RecipeSerializer(serializers.ModelSerializer):
     charge_amount = serializers.DecimalField(
         max_digits=12, decimal_places=3, localize=True)
-    temperatur = serializers.DecimalField(max_digits=4, decimal_places=1, localize=True)
+    temperatur = serializers.DecimalField(
+        max_digits=4, decimal_places=1, localize=True)
 
     class Meta:
         model = models.Recipe
@@ -76,8 +78,10 @@ class Production(serializers.ModelSerializer):
     unit_name = serializers.ReadOnlyField(source='unit.name')
     recipe_name = serializers.ReadOnlyField(source='recipe.name')
     charge = serializers.ReadOnlyField(source='get_charge')
-    actual_temperatur = serializers.DecimalField(max_digits=4, decimal_places=1, localize=True)
-    amount = serializers.DecimalField(max_digits=10, decimal_places=3, localize=True)
+    actual_temperatur = serializers.DecimalField(
+        max_digits=4, decimal_places=1, localize=True, default=20)
+    amount = serializers.DecimalField(
+        max_digits=10, decimal_places=3, localize=True)
 
     class Meta:
         model = models.Production
@@ -86,7 +90,9 @@ class Production(serializers.ModelSerializer):
 
 
 class ProductionIngredientsSerializer(serializers.ModelSerializer):
-    amount = serializers.DecimalField(max_digits=10, decimal_places=3, localize=True)
+    amount = serializers.DecimalField(
+        max_digits=10, decimal_places=3, localize=True)
+
     class Meta:
         model = models.ProductionIngredients
         fields = '__all__'
@@ -104,11 +110,7 @@ class OrdersSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ProductionListSerializer(serializers.Serializer):
-    product = serializers.CharField(read_only=True)
-    # lieferdatum = serializers.DateField(read_only=True)
-    # recipe = serializers.CharField(read_only=True)
-    # ingredient = serializers.CharField(read_only=True)
-    # menge = serializers.FloatField(read_only=True)
-    # rest = serializers.DurationField(read_only=True)
-    # productiondate = serializers.DateField(read_only=True)
+class TemperaturSensorSearializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.TemperaturSensor
+        fields = '__all__'

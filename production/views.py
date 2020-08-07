@@ -1,6 +1,6 @@
 # Create your views here.
 from datetime import datetime, timedelta
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, mixins
 from rest_framework.decorators import action
 from django.db import connection
 from django.core.serializers.json import DjangoJSONEncoder
@@ -75,8 +75,14 @@ class RecipeIngredientViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.RecipeIngredientSerializer
 
 
+class TemperatureSensorViewSet(viewsets.ModelViewSet):
+    queryset = models.TemperaturSensor.objects.all().order_by('date_time')[:6]
+    serializer_class = serializers.TemperaturSensorSearializer
+
+
 class orderOverviewList(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request, format=None):
         sql = """
  WITH RECURSIVE plan as (
@@ -186,6 +192,7 @@ class ProductionViewSet(viewsets.ModelViewSet):
 
 class MixingList(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request, format=None):
         sql = """
 SELECT r.name as rezeptname,
@@ -226,6 +233,7 @@ class OrdersViewSet(viewsets.ModelViewSet):
 
 class makeRecipe(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request, production_id, format=None):
         sql = """
 SELECT ri.id as id,

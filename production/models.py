@@ -221,4 +221,4 @@ class TemperaturSensor(models.Model):
     date_time = models.DateTimeField()
 
     def __str__(self):
-        return "{}-{}, {} | {}".format(self.sensor_name, self.date_time, self.temperature, self.humidity)
+        return self.sensor_name
