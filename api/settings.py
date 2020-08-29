@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'production',
+    'timetracker',
     'corsheaders',
     'django_filters',
     'rest_framework.authtoken',
@@ -129,7 +130,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    )
+    ),
 }
 
 
@@ -138,7 +139,7 @@ REST_FRAMEWORK = {
 
 LANGUAGE_CODE = 'de'
 LANGUAGES = (
-  ('de', 'German'),
+    ('de', 'German'),
 )
 
 TIME_ZONE = 'Europe/Istanbul'
@@ -148,7 +149,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 
 # Static files (CSS, JavaScript, Images)
