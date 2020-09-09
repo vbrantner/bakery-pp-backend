@@ -153,7 +153,7 @@ class orderOverviewList(APIView):
            max(to_char(plan.Backdatum, 'yyyy-mm-dd')) as Backdatum,
            Rezept,
            RezeptID,
-           replace(TO_CHAR(round(sum(Menge), 3), '9999D999'), '.', ',') as Menge,
+           replace(TO_CHAR(round(sum(Menge), 3), '9990D999'), '.', ',') as Menge,
            Einheit,
            EinheitID
     FROM plan
