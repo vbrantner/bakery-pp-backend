@@ -29,11 +29,11 @@ class AttandanceViewSet(viewsets.ModelViewSet):
     queryset = models.Attandance.objects.all()
     serializer_class = serializers.AttandanceSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter]
-    filterset_fields = ['employee', 'date']
+    filterset_fields = ['employee', 'date', 'created_at']
 
 
 class ListAttandanceWithDate(APIView):
     def get(self, request, id, date, format=None):
-        attandances = models.Attandance.objects.filter(employee=id, date__gte=date).order_by('-date', '-time')
+        attandances = models.Attandance.objects.filter(employee=id, date__gte=date).order_by('-created_at')
         serializer = serializers.AttandanceSerializer(attandances, many=True)
         return Response(serializer.data)
